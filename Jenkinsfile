@@ -1,53 +1,51 @@
 pipeline {
-  agent any
+    agent any
 
-  environment {
-    NODE_ENV = 'production'
-  }
-
-  stages {
-    stage('Checkout') {
-      steps {
-        echo '📥 Cloning repository...'
-        git url: 'https://github.com/PushkarSAshtekar/nextjs-app.git', branch: 'main'
-      }
+    environment {
+        NODE_ENV = "development"
     }
 
-    stage('Build') {
-      steps {
-        echo '🔧 Installing dependencies...'
-        sh 'npm install'
-      }
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "📥 Cloning repository..."
+                git 'https://github.com/PushkarSAshtekar/nextjs-app.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "🔧 Installing dependencies..."
+                bat 'npm install'
+            }
+        }
+
+        stage('Develop') {
+            steps {
+                echo "🚀 Starting development build..."
+                bat 'npm run build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "🧪 Running tests..."
+                bat 'npm test'
+            }
+        }
+
+        stage('Release') {
+            steps {
+                echo "📦 Releasing application..."
+                // Add your release logic here (e.g., deploy script)
+            }
+        }
     }
 
-    stage('Develop') {
-      steps {
-        echo '⚙️ Building the Next.js app...'
-        sh 'npm run build'
-      }
-    }
-
-    stage('Test') {
-      steps {
-        echo '🧪 Running tests (optional)...'
-        echo '✅ No tests defined yet.'
-      }
-    }
-
-    stage('Release') {
-      steps {
-        echo '🚀 Starting the app...'
-        sh 'nohup npm start &'
-      }
-    }
-  }
-
-  post {
-    success {
-      echo '✅ Build completed successfully!'
-    }
-    failure {
-      echo '❌ Build failed!'
-    }
-  }
-}
+    post {
+        success {
+            echo "✅ Build succeeded!"
+        }
+        failure {
+            echo "❌ Build failed!"
+        }
