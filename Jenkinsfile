@@ -37,7 +37,7 @@ pipeline {
         stage('Release') {
             steps {
                 echo "📦 Releasing application..."
-                // Add your release logic here (e.g., deploy script)
+                // You can add deployment commands here if needed
             }
         }
     }
@@ -49,3 +49,5 @@ pipeline {
         failure {
             echo "❌ Build failed!"
         }
+    }
+}
