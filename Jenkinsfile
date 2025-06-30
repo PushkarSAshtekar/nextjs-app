@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "📥 Cloning repository..."
-                git 'https://github.com/PushkarSAshtekar/nextjs-app.git'
+                git branch: 'main', url: 'https://github.com/PushkarSAshtekar/nextjs-app.git'
             }
         }
 
@@ -37,7 +37,7 @@ pipeline {
         stage('Release') {
             steps {
                 echo "📦 Releasing application..."
-                // You can add deployment commands here if needed
+                // Add deployment steps here if needed
             }
         }
     }
